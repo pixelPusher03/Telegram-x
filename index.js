@@ -1,26 +1,25 @@
 import telebot
 
-# Replace with your bot token and admin ID
 BOT_TOKEN = 'YOUR_BOT_TOKEN'
 ADMIN_ID = 123456789
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
-# Welcome messages
+// Welcome messages
 welcome_admin = "Now share your bot and wait for messages."
 welcome_user = "Greetings, send me a message. I will try to answer as soon as possible."
 reply_wrong = "Use the Reply function to reply to the user."
 
-# Check if the user is an admin
+// Check if the user is an admin
 def is_admin(user_id):
     return user_id == ADMIN_ID
 
-# Forward messages to the admin and reply to user
+// Forward messages to the admin and reply to user
 def forward_and_reply(message):
     bot.forward_message(chat_id=ADMIN_ID, from_chat_id=message.chat.id, message_id=message.message_id)
     bot.reply_to(message, reply_wrong)
 
-# Handle start command
+// Handle start command
 @bot.message_handler(commands=['start'])
 def start(message):
     if is_admin(message.from_user.id):
@@ -28,7 +27,7 @@ def start(message):
     else:
         bot.reply_to(message, welcome_user)
 
-# Handle all other messages
+// Handle all other messages
 @bot.message_handler(func=lambda message: True)
 def echo_message(message):
     # Check if the message is a reply to a forwarded message from the admin

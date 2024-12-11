@@ -3,7 +3,7 @@ const Telegraf = require('telegraf');
 // const HttpsProxyAgent = require('https-proxy-agent');
 // General settings
 let config = {
-    "token": "YOUR_TOKEN", // Bot token
+    "token": "7683704411:AAFwF89eqSa1xQkXdNVjirI6yr9ABa_6EwI", // Bot token
     "admin": 034567888 // bot owner id
 };
 const CHAT_ID = 034567888 ; // bot owner id

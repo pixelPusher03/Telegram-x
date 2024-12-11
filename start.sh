@@ -1,5 +1,5 @@
 #!bin/bash
-#Coded by 7ife
+#Coded by the Developer03
 clear
 echo ""
 echo -e "\033[1;94m ‎"
@@ -10,8 +10,8 @@ echo "${k}   ██║   ██║   ██║██╔══██╗██╔�
 echo "${k}   ██║   ╚██████╔╝██████╔╝██║  ██║";
 echo "${k}   ╚═╝    ╚═════╝ ╚═════╝ ╚═╝  ╚═╝";
 echo ""                                 
-echo -e "\033[1;90m  Github: github.com/7ife"
-echo -e "\033[1;90m  E-mail: 7ife@pm.me"
+echo -e "\033[1;90m  Github: github.com/byte-smith03"
+echo -e "\033[1;90m  E-mail: smtechofcmods@gmail.com"
 echo ""
 echo -e "\033[1;94m::TGBA for Android::"
 sleep 2

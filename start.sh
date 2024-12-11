@@ -30,17 +30,17 @@ sleep 2
 #Enter <bot_token>
 search="YOUR_TOKEN"
 read -p "#Enter <bot_token> which your received from @BotFather >>> " botToken
-if [[ $search != "" && $botToken != "" ]]; then
-sed -i "s/$search/$botToken/gi" index.js
+if [[ $search != "" && $bottoken != "" ]]; then
+sed -i "s/$search/$bottoken/gi" index.js
 fi
 echo -e ""
 echo -e " \033[1;93m successful\e[0m"
 echo -e "\033[1;96m ‎"
 #Enter admin id
 search="034567888"
-read -p "#Enter telegram id - To get it, use @userinfobot >>> " adminId
+read -p "#Enter telegram id - To get it, use @userinfobot >>> " adminid
 if [[ $search != "" && $adminId != "" ]]; then
-sed -i "s/$search/$adminId/gi" index.js
+sed -i "s/$search/$adminid/gi" index.js
 fi
 echo -e ""
 echo -e " \033[1;93m successful"

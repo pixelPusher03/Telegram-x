@@ -1,43 +1,46 @@
-import telebot
+const TeleBot = require('telebot');
 
-bottoken = '7683704411:AAFwF89eqSa1xQkXdNVjirI6yr9ABa_6EwI'
-adminid = '431292726'
+const botToken = '7683704411:AAFwF89eqSa1xQkXdNVjirI6yr9ABa_6EwI';
+const adminId = '431292726';
 
-bot = telebot.TeleBot(bottoken)
+const bot = new TeleBot(botToken);
 
 // Welcome messages
-welcome_admin = "Now share your bot and wait for messages."
-welcome_user = "Greetings, send me a message. I will try to answer as soon as possible."
-reply_wrong = "Use the Reply function to reply to the user."
+const welcomeAdmin = "Now share your bot and wait for messages.";
+const welcomeUser = "Greetings, send me a message. I will try to answer as soon as possible.";
+const replyWrong = "Use the Reply function to reply to the user.";
 
 // Check if the user is an admin
-def is_admin(user_id):
-    return user_id == ADMIN_ID
+const isAdmin = (userId) => userId === adminId;
 
 // Forward messages to the admin and reply to user
-def forward_and_reply(message):
-    bot.forward_message(chat_id=ADMIN_ID, from_chat_id=message.chat.id, message_id=message.message_id)
-    bot.reply_to(message, reply_wrong)
+const forwardAndReply = (message) => {
+  bot.forwardMessage(adminId, message.chat.id, message.message_id);
+  bot.replyTo(message, replyWrong);
+};
 
 // Handle start command
-@bot.message_handler(commands=['start'])
-def start(message):
-    if is_admin(message.from_user.id):
-        bot.reply_to(message, welcome_admin)
-    else:
-        bot.reply_to(message, welcome_user)
+bot.on('text', /\/start/, (message) => {
+  if (isAdmin(message.from.id)) {
+    bot.replyTo(message, welcomeAdmin);
+  } else {
+    bot.replyTo(message, welcomeUser);
+  }
+});
 
 // Handle all other messages
-@bot.message_handler(func=lambda message: True)
-def echo_message(message):
-    # Check if the message is a reply to a forwarded message from the admin
-    if message.reply_to_message and message.reply_to_message.forward_from:
-        if message.reply_to_message.forward_from.id == ADMIN_ID:
-            bot.forward_message(chat_id=message.reply_to_message.forward_from.id, from_chat_id=message.chat.id, message_id=message.message_id)
-        else:
-            forward_and_reply(message)
-    else:
-        forward_and_reply(message)
+bot.on('text', (message) => {
+  // Check if the message is a reply to a forwarded message from the admin
+  if (message.reply_to && message.reply_to.forward_from) {
+    if (message.reply_to.forward_from.id === adminId) {
+      bot.forwardMessage(message.reply_to.forward_from.id, message.chat.id, message.message_id);
+    } else {
+      forwardAndReply(message);
+    }
+  } else {
+    forwardAndReply(message);
+  }
+});
 
 // Start the bot
-bot.polling()
+bot.start();

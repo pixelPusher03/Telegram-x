@@ -1,0 +1,16 @@
+{
+  "name": "TG-FeedBack",
+  "version": "1.0.1",
+  "description": "telegram feedback bot",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "GitHub/7ife",
+  "license": "ISC",
+  "dependencies": {
+    "https-proxy-agent": "^2.2.1",
+    "telegraf": "^3.39.0"
+  }
+}

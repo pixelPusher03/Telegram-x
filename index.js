@@ -1,4 +1,4 @@
-const TeleBot = require('telebot');
+const Telegraf = require('telegraf');
 
 const botToken = '7683704411:AAFwF89eqSa1xQkXdNVjirI6yr9ABa_6EwI';
 const adminId = '431292726';

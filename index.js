@@ -1,78 +1,44 @@
-// Importing Modules
-const Telegraf = require('telegraf');
+import telebot
 
-// General Settings
-const config = {
-  token: '7683704411:AAFwF89eqSa1xQkXdNVjirI6yr9ABa_6EwI',
-  admin: 34567888,
-};
+# Replace with your bot token and admin ID
+BOT_TOKEN = 'YOUR_BOT_TOKEN'
+ADMIN_ID = 123456789
 
-const CHAT_ID = 6431292726;
+bot = telebot.TeleBot(BOT_TOKEN)
 
-// Creating a Bot Object
-const bot = new Telegraf(config.token);
+# Welcome messages
+welcome_admin = "Now share your bot and wait for messages."
+welcome_user = "Greetings, send me a message. I will try to answer as soon as possible."
+reply_wrong = "Use the Reply function to reply to the user."
 
-// Function to Get Hidden Link
-function getHiddenLink(url, parseMode = 'markdown') {
-  const emptyChar = '';
-  switch (parseMode) {
-    case 'HTML':
-      return `<a href="${url}">${emptyChar}</a>`;
-    default:
-      throw new Error('Invalid parse mode');
-  }
-}
+# Check if the user is an admin
+def is_admin(user_id):
+    return user_id == ADMIN_ID
 
-// Message to Successfully Installed Bot
-bot.telegram.sendMessage(
-  CHAT_ID,
-  `<b>Great, you have successfully installed a feedback bot!</b> ${getHiddenLink(
-    '(link unavailable)',
-    'HTML'
-  )}`,
-  { parseMode: 'HTML' }
-);
+# Forward messages to the admin and reply to user
+def forward_and_reply(message):
+    bot.forward_message(chat_id=ADMIN_ID, from_chat_id=message.chat.id, message_id=message.message_id)
+    bot.reply_to(message, reply_wrong)
 
-// Text Settings
-const replyText = {
-  helloAdmin: 'Now share your bot and wait for messages.',
-  helloUser: 'Greetings, send me a message. I will try to answer as soon as possible.',
-  replyWrong: 'Use the Reply function to reply to the user.',
-};
+# Handle start command
+@bot.message_handler(commands=['start'])
+def start(message):
+    if is_admin(message.from_user.id):
+        bot.reply_to(message, welcome_admin)
+    else:
+        bot.reply_to(message, welcome_user)
 
-// Checking User Rights
-function isAdmin(userId) {
-  return userId === config.admin;
-}
+# Handle all other messages
+@bot.message_handler(func=lambda message: True)
+def echo_message(message):
+    # Check if the message is a reply to a forwarded message from the admin
+    if message.reply_to_message and message.reply_to_message.forward_from:
+        if message.reply_to_message.forward_from.id == ADMIN_ID:
+            bot.forward_message(chat_id=message.reply_to_message.forward_from.id, from_chat_id=message.chat.id, message_id=message.message_id)
+        else:
+            forward_and_reply(message)
+    else:
+        forward_and_reply(message)
 
-// Forwarding to Admin
-function forwardToAdmin(ctx) {
-  if (isAdmin((link unavailable))) {
-    ctx.reply(replyText.replyWrong);
-  } else {
-    ctx.forwardMessage(config.admin, (link unavailable), (link unavailable));
-  }
-}
-
-// Bot Start
-bot.start((ctx) => {
-  ctx.reply(isAdmin((link unavailable)) ? replyText.helloAdmin : replyText.helloUser);
-});
-
-// Listening for Messages
-bot.on('message', (ctx) => {
-  if (ctx.message.reply_to_message && ctx.message.reply_to_message.forward_from && isAdmin((link unavailable))) {
-    ctx.telegram.sendCopy((link unavailable), ctx.message);
-  } else {
-    forwardToAdmin(ctx);
-  }
-});
-
-// Bot Launch
-bot.launch()
-  .then(() => console.log('Bot Launched'))
-  .catch(console.log);
-
-// Enable Graceful Stop
-process.once('SIGINT', () => bot.stop('SIGINT'));
-process.once('SIGTERM', () => bot.stop('SIGTERM'));
+# Start the bot
+bot.polling()

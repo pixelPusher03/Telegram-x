@@ -6,7 +6,7 @@ let config = {
     "token": "7683704411:AAFwF89eqSa1xQkXdNVjirI6yr9ABa_6EwI", // Bot token
     "admin": 034567888 // bot owner id
 };
-const CHAT_ID = 034567888 ; // bot owner id
+const CHAT_ID = 6431292726 ; // bot owner id
 // Creating a bot object
 const bot = new Telegraf(config.token, {
         // If you need to go through a proxy, specify it: user, pass, host, port

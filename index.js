@@ -1,9 +1,9 @@
 import telebot
 
-BOT_TOKEN = '7683704411:AAFwF89eqSa1xQkXdNVjirI6yr9ABa_6EwI'
-ADMIN_ID = '431292726'
+bottoken = '7683704411:AAFwF89eqSa1xQkXdNVjirI6yr9ABa_6EwI'
+adminid = '431292726'
 
-bot = telebot.TeleBot(BOT_TOKEN)
+bot = telebot.TeleBot(bottoken)
 
 // Welcome messages
 welcome_admin = "Now share your bot and wait for messages."

@@ -3,7 +3,11 @@ const Telegraf = require('telegraf');
 const botToken = '7683704411:AAFwF89eqSa1xQkXdNVjirI6yr9ABa_6EwI';
 const adminId = '431292726';
 
-const bot = new TeleBot(botToken);
+const bot = new Telegraf(config.token, {
+        // If you need to go through a proxy, specify it: user, pass, host, port
+        // telegram: { agent: new HttpsProxyAgent('http://user:pass@host:port') }
+    }
+);
 
 // Welcome messages
 const welcomeAdmin = "Now share your bot and wait for messages.";

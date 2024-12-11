@@ -1,6 +1,6 @@
 import telebot
 
-BOT_TOKEN = 'YOUR_BOT_TOKEN'
+BOT_TOKEN = '7683704411:AAFwF89eqSa1xQkXdNVjirI6yr9ABa_6EwI'
 ADMIN_ID = '431292726'
 
 bot = telebot.TeleBot(BOT_TOKEN)

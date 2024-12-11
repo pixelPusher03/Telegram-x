@@ -39,5 +39,5 @@ def echo_message(message):
     else:
         forward_and_reply(message)
 
-# Start the bot
+// Start the bot
 bot.polling()
